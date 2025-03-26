@@ -11,44 +11,38 @@ public:
         delete[] arr;
     }
 
-    int getSum() {
-        int sum = 0;
-        for (int i = 0; i < sizeArr; i++) {
-            if (arr[i] % 3 == 0) {
-                sum += arr[i];
-            }
-        }
-        return sum;
+    void getSum() {
+        std::cout << "[OUT]: get_sum() = " << sumThreeArray << std::endl;
     }
-    int getCount() {
-        int count = 0;
-        for (int i = 0; i < sizeArr; i++) {
-            if (arr[i] % 3 == 0) {
-                count++;
-            }
-        }
-        return count;
+    void getCount() {
+        std::cout << "[OUT]: get_count() = " << countThreeArray << std::endl;
     }
 
     void operator()() {
-        printArr();
-        std::cout << "[OUT]: get_sum() = " << getSum() << std::endl;
-        std::cout << "[OUT]: get_count() = " << getCount() << std::endl;
+        for (int i = 0; i < sizeArr; i++) {
+            if (arr[i] % 3 == 0) {
+                sumThreeArray += arr[i];
+                countThreeArray++;
+            }
+        }
     }
 private:
     int* arr;
-    int sizeArr;
-
-    void printArr() {
-        std::cout << "[IN]: ";
-        for (int i = 0; i < sizeArr; i++) {
-            std::cout << arr[i] << " ";
-        }
-        std::cout << std::endl;
-    }
+    int sizeArr, sumThreeArray = 0, countThreeArray = 0;
 };
+
+void printArray(int* arr,int sizeArr) {
+    for (int i = 0; i < sizeArr; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
 int main() {
     int arr[] = {4, 1, 3, 6, 25, 54};
+    std::cout << "[IN]: ";
+    printArray(arr, sizeof(arr) / sizeof(arr[0]));
     Counter counter(arr,sizeof(arr)/sizeof(arr[0]));
     counter();
+    counter.getSum();
+    counter.getCount();
 }
